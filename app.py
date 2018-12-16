@@ -43,7 +43,7 @@ def get_by_title():
     elif 'from_id' in request.args and 'to_id' in request.args:
         from_id = request.args.get('from_id')
         to_id = request.args.get('to_id')
-        session.query(VideoEntry).filter(from_id <= VideoEntry.id).filter(VideoEntry.id <= to_id)
+        matches = session.query(VideoEntry).filter(from_id <= VideoEntry.id).filter(VideoEntry.id <= to_id)
     else:
         return add_headers({'result': 'Error in url args'}, 400)
     matches = [x.get_json() for x in matches]
