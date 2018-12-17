@@ -1,13 +1,13 @@
-from flask import Flask, request
-from flask_cors import CORS
-
-from settings import PORT, HOST, DEFAULT_PAGESIZE
-from utils import add_headers
-from flask_sqlalchemy import SQLAlchemy
-from  sqlalchemy import desc
 import time
 
+from flask import Flask, request
+from flask_cors import CORS
+from flask_sqlalchemy import SQLAlchemy
+from sqlalchemy import desc
+
 from settings import DB_NAME
+from settings import PORT, HOST, DEFAULT_PAGESIZE
+from utils import add_headers
 
 app = Flask(__name__)
 CORS(app)
@@ -74,12 +74,13 @@ def get_paginated():
     page_no = int(request.args.get('page')) if request.args.get('page') is not None else 1
     descend = desc if request.args.get('desc') is not None else lambda *a, **k: None
 
-    matches = db.session.query(VideoEntry)\
-        .filter(VideoEntry.title.like("%" + key + "%"))\
+    matches = db.session.query(VideoEntry) \
+        .filter(VideoEntry.title.like("%" + key + "%")) \
         .order_by(descend(VideoEntry.title)) \
         .paginate(page=page_no, per_page=DEFAULT_PAGESIZE)
 
-    paginated_result = {'elements': list(map(lambda x: x.get_json(), matches.items)), 'pages': matches.pages, 'page': matches.page}
+    paginated_result = {'elements': list(map(lambda x: x.get_json(), matches.items)), 'pages': matches.pages,
+                        'page': matches.page}
     return add_headers(paginated_result, 200)
 
 
