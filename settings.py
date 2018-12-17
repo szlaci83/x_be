@@ -1,3 +1,4 @@
 DB_NAME = "xvideos_asian"
-HOST = "localhost"
+DEFAULT_PAGESIZE = 21
+HOST = "0.0.0.0"
 PORT = 4555

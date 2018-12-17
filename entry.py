@@ -19,7 +19,7 @@ class VideoEntry(Base):
     last_checked = Column(Integer)
 
     def get_json(self):
-        return  {"title": self.title,
+        return {"title": self.title,
                 "duration": 0 if self.duration is None else self.duration,
                 "host": "" if self.host is None else self.host,
                 "ref_id": "" if self.ref_id is None else self.ref_id,
