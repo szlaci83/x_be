@@ -1,6 +1,8 @@
-from flask import jsonify, make_response
 import pickle
-import logging
+
+from flask import jsonify, make_response
+
+
 # import yaml
 
 # from properties import SERVER_LOG, LOGGING_LEVEL
@@ -40,7 +42,7 @@ def validate_req(req, fields):
 
 def pickle_it(it, filename):
     with open(filename + '.pickle', 'wb') as file:
-        pickle.dump(it,  file, protocol=pickle.HIGHEST_PROTOCOL)
+        pickle.dump(it, file, protocol=pickle.HIGHEST_PROTOCOL)
     return
 #
 # def load_settings_from_yml(filename):

@@ -5,13 +5,16 @@ from flask_cors import CORS
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import desc
 
-from settings import DB_NAME
-from settings import PORT, HOST, DEFAULT_PAGESIZE
+from settings import ENV
+
 from utils import add_headers
 
 app = Flask(__name__)
 CORS(app)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///' + DB_NAME + '.db'
+
+app.config.from_object(ENV)
+
+
 db = SQLAlchemy(app)
 
 
@@ -77,7 +80,7 @@ def get_paginated():
     matches = db.session.query(VideoEntry) \
         .filter(VideoEntry.title.like("%" + key + "%")) \
         .order_by(descend(VideoEntry.title)) \
-        .paginate(page=page_no, per_page=DEFAULT_PAGESIZE)
+        .paginate(page=page_no, per_page=ENV.DEFAULT_PAGESIZE)
 
     paginated_result = {'elements': list(map(lambda x: x.get_json(), matches.items)), 'pages': matches.pages,
                         'page': matches.page}
@@ -91,4 +94,4 @@ def add_vid():
 
 
 if __name__ == '__main__':
-    app.run(host=HOST, port=PORT, ssl_context=('cert1.pem', 'privkey1.pem'))
+    app.run(host=ENV.HOST, port=ENV.PORT, ssl_context=ENV.SSL_CONTEXT)
