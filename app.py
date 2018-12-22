@@ -91,4 +91,4 @@ def add_vid():
 
 
 if __name__ == '__main__':
-    app.run(host=HOST, port=PORT)
+    app.run(host=HOST, port=PORT, ssl_context=('cert1.pem', 'privkey1.pem'))

@@ -7,6 +7,10 @@ settings.py
 
 *.db
 .idea/
+*.pem
+*.out
+*.log
+log/
 
 # C extensions
 *.so
