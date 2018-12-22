@@ -1,5 +1,5 @@
 class BaseConf(object):
-    DB_NAME = "example"
+    DB_NAME = "xvideos_asian"
     DEFAULT_PAGESIZE = 21
     HOST = "0.0.0.0"
     PORT = 4555
